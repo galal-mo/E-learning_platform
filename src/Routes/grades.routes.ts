@@ -2,7 +2,7 @@ import { allowedTo, protectedRoutes } from '../middleware/auth';
 import express from 'express'
 import { validation } from '../middleware/validation';
 import { assignGradeVal } from '../validations/grade.validation';
-import { assignGradeConroller, viewGradeConroller } from '../Controllers/grades.controller';
+import { assignGradeConroller, viewAverageGradeConroller, viewGradeConroller } from '../Controllers/grades.controller';
 import { paramsIdVal } from '../validations/sharedValidations';
 const gradeRouter = express.Router()
 
@@ -10,7 +10,9 @@ const gradeRouter = express.Router()
 
 gradeRouter.post('/assign', protectedRoutes, allowedTo('professor'), validation(assignGradeVal), assignGradeConroller)
 
-gradeRouter.route('/:id').get( protectedRoutes, validation(paramsIdVal), viewGradeConroller)
+gradeRouter.route('/:id').get(protectedRoutes, viewGradeConroller)
+
+gradeRouter.route('/:id/average').get(protectedRoutes, allowedTo('professor'), validation(paramsIdVal), viewAverageGradeConroller)
 
 
 export default gradeRouter

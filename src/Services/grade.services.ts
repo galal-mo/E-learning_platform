@@ -11,7 +11,6 @@ import mongoose from "mongoose"
 
 const assignGradeService = async (grade: gradeType) => {
     let course = await courseModel.findOne({ _id: grade.course, students: grade.student })
-    console.log(course);
 
     if (!course) return null
 
@@ -23,10 +22,20 @@ const viewGradeService = async (student: string) => {
     return await gradeModel.find({ student })
 }
 
+const viewSingleGradeService = async (student: string, course: any) => {
+    return await gradeModel.find({ student, course })
+}
+
+const viewAverageGradeService = async (course: string) => {
+    return (await gradeModel.aggregate([{ $group: { "_id": "$course", AvarageGrade: { $avg: "$grade" } } }])).find((doc) => doc._id == course)
+}
+
 
 
 
 export {
     assignGradeService,
-    viewGradeService
+    viewGradeService,
+    viewAverageGradeService, 
+    viewSingleGradeService
 }
