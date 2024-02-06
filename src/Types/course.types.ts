@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import { RequestCustom } from "./RequestCustom"
 
 export type courseType = {
     title: string,

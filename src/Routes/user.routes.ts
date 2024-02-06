@@ -1,6 +1,6 @@
 
 import express from 'express';
-import { addUserController, deleteUserController, signinController, updateUserController } from '../Controllers/user.controller';
+import *as userController from '../Controllers/user.controller';
 import { validation } from '../middleware/validation';
 import { addUserVal, signinVal, updateUserVal } from '../validations/user.validations';
 import { paramsIdVal } from '../validations/sharedValidations';
@@ -11,12 +11,12 @@ const userRouter = express.Router()
 // let common:string[]=
 
 userRouter
-    .post('/create',validation(addUserVal), addUserController)
-    .post('/signin',validation(signinVal), signinController)
+    .post('/create',validation(addUserVal), userController.addUserController)
+    .post('/signin',validation(signinVal), userController.signinController)
 
     userRouter.route('/:id')
-    .put(protectedRoutes,validation(updateUserVal), updateUserController)
-    .delete(protectedRoutes,validation(paramsIdVal), deleteUserController)
+    .put(protectedRoutes,validation(updateUserVal), userController.updateUserController)
+    .delete(protectedRoutes,validation(paramsIdVal), userController.deleteUserController)
 
 
 export default userRouter
