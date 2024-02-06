@@ -9,11 +9,18 @@ const assignGradeVal = Joi.object({
     feedback: Joi.string().min(2).max(200).optional(),
 })
 
+const studentGradeVal = Joi.object({
+    id: Joi.string().hex().length(24).required(),
+    courseId: Joi.string().min(2).max(50).optional(),
+
+})
+
 
 
 
 
 export {
     assignGradeVal,
+    studentGradeVal
 
 }
