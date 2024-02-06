@@ -28,8 +28,8 @@ app.use('*', (req: Request, res: Response, next: NextFunction) => {
     next(new AppError(`not found endpoint:${req.originalUrl}`, 404))
 })
 
-process.on('unhandledRejection', (err) => {
-    console.log("error", err);
+process.on('unhandledRejection', (err:Error,next:NextFunction) => {
+    return next(new AppError(err.message, 404))
 })
 app.use(globalErrorHandling)
 
