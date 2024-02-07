@@ -18,7 +18,7 @@ const courseSchema=new mongoose.Schema({
     },
     professor:{
         type:mongoose.Types.ObjectId,
-        required: [true, "professor is required"],//!reconsider
+        required: [true, "professor is required"],
         ref:'user',
     }, 
     students:[{
